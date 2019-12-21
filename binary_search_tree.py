@@ -22,40 +22,31 @@ class BinarySearchTree:
     @classmethod
     def print_preorder(cls, root):
         """Print binary search tree with preorder: root, left, right."""
-        def printer():
-            if not root:
-                return
+        if not root:
+            return
 
-            print(root.value, end=" ")
-            cls.print_preorder(root.left)
-            cls.print_preorder(root.right)
-        printer()
-        print()
+        print(root.value, end=" | ")
+        cls.print_preorder(root.left)
+        cls.print_preorder(root.right)
 
     @classmethod
     def print_inorder(cls, root):
         """Print binary search tree with inorder: left, root, right."""
-        def printer():
-            if not root:
-                return
+        if not root:
+            return
 
-            cls.print_inorder(root.left)
-            print(root.value, end=" ")
-            cls.print_inorder(root.right)
-        printer()
-        print()
+        cls.print_inorder(root.left)
+        print(root.value, end=" | ")
+        cls.print_inorder(root.right)
 
     @classmethod
     def print_postorder(cls, root):
         """Print binary search tree with postorder: left, right, root."""
-        def printer():
-            if not root:
-                return
-            cls.print_postorder(root.left)
-            cls.print_postorder(root.right)
-            print(root.value, end=" ")
-        printer()
-        print()
+        if not root:
+            return
+        cls.print_postorder(root.left)
+        cls.print_postorder(root.right)
+        print(root.value, end=" | ")
 
     @classmethod
     def print_outorder(cls, root):
@@ -65,17 +56,51 @@ class BinarySearchTree:
                 return
             cls.print_outorder(root.left)
             cls.print_outorder(root.right)
-            print(root.value, end=" ")
+            print(root.value, end=" | ")
         printer()
         print()
 
+    @classmethod
+    def insert_node(cls, node, root):
+        if root is None:
+            return node
+        if node.value < root.value:
+            root.left = cls.insert_node(node, root.left)
+        else:
+            root.right = cls.insert_node(node, root.right)
+        return root
+
     @staticmethod
-    def assemble_tree(the_list):
+    def assemble_tree(node_list):
         """Assemble Binary Search Tree based on the given list."""
-        #  WIP
+        tree = BinarySearchTree()
+        tree.root = BinarySearchTreeNode(node_list[0])
+        index = 1
+        while index <= len(node_list)-1:
+            tree.insert_node(BinarySearchTreeNode(node_list[index]), tree.root)
+            index += 1
+        return tree
+
+    @staticmethod
+    def find_node(target, tree, current):
+        if target == current.value:
+            return True
+        elif target < current.value:
+            if current.left is not None:
+                current = current.left
+            else:
+                return False
+        elif target >= current.value:
+            if current.right is not None:
+                current = current.right
+            else:
+                return False
+        return False
 
 
 if __name__ == "__main__":
-    tree = BinarySearchTree()
-    tree.root = BinarySearchTreeNode(5)
-    tree.print_inorder(tree.root)
+    TREE = BinarySearchTree.assemble_tree([5, 2, 1, 0, 3.10, 3.5, -3])
+    print("| ", end="")
+    TREE.print_inorder(TREE.root)
+    print()
+    print(TREE.find_node(-5, TREE, TREE.root))
