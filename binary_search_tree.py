@@ -20,7 +20,7 @@ class BinarySearchTree:
         self.root = None
 
     @classmethod
-    def print_preorder(cls, root) -> None:
+    def print_preorder(cls, root: BinarySearchTreeNode) -> None:
         """Print binary search tree with preorder: root, left, right."""
         if not root:
             return
@@ -30,7 +30,7 @@ class BinarySearchTree:
         cls.print_preorder(root.right)
 
     @classmethod
-    def print_inorder(cls, root) -> None:
+    def print_inorder(cls, root: BinarySearchTreeNode) -> None:
         """Print binary search tree with inorder: left, root, right."""
         if not root:
             return
@@ -40,7 +40,7 @@ class BinarySearchTree:
         cls.print_inorder(root.right)
 
     @classmethod
-    def print_postorder(cls, root) -> None:
+    def print_postorder(cls, root: BinarySearchTreeNode) -> None:
         """Print binary search tree with postorder: left, right, root."""
         if not root:
             return
@@ -49,19 +49,18 @@ class BinarySearchTree:
         print(root.value, end=" | ")
 
     @classmethod
-    def print_outorder(cls, root) -> None:
+    def print_outorder(cls, root: BinarySearchTreeNode) -> None:
         """Print binary search tree with outorder: right, root, left."""
-        def printer():
-            if not root:
-                return
-            cls.print_outorder(root.left)
-            cls.print_outorder(root.right)
-            print(root.value, end=" | ")
-        printer()
-        print()
+        if not root:
+            return
+        cls.print_outorder(root.left)
+        cls.print_outorder(root.right)
+        print(root.value, end=" | ")
 
     @classmethod
-    def insert_node(cls, node, root) -> BinarySearchTreeNode:
+    def insert_node(cls, node: BinarySearchTreeNode,
+                    root: BinarySearchTreeNode) -> BinarySearchTreeNode:
+        """Insert Node into Binary Search Tree."""
         if root is None:
             return node
         if node.value < root.value:
@@ -71,7 +70,7 @@ class BinarySearchTree:
         return root
 
     @staticmethod
-    def assemble_tree(node_list) -> BinarySearchTree:
+    def assemble_tree(node_list: list) -> object:
         """Assemble Binary Search Tree based on the given list."""
         tree = BinarySearchTree()
         tree.root = BinarySearchTreeNode(node_list[0])
@@ -82,10 +81,12 @@ class BinarySearchTree:
         return tree
 
     @classmethod
-    def find_node(cls, target, tree, current) -> bool:
+    def find_node(cls, target: int, tree: object,
+                  current: BinarySearchTreeNode) -> bool:
+        """Search tree for node if found return true else return false."""
         if target == current.value:
             return True
-        elif target < current.value:
+        if target < current.value:
             if current.left is not None:
                 current = current.left
             else:
@@ -103,4 +104,14 @@ if __name__ == "__main__":
     print("| ", end="")
     TREE.print_inorder(TREE.root)
     print()
+    print("| ", end="")
+    TREE.print_outorder(TREE.root)
+    print()
+    print("| ", end="")
+    TREE.print_preorder(TREE.root)
+    print()
+    print("| ", end="")
+    TREE.print_postorder(TREE.root)
+    print()
     print(TREE.find_node(-6, TREE, TREE.root))
+    print(type(TREE))
