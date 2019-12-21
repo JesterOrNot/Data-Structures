@@ -81,8 +81,8 @@ class BinarySearchTree:
             index += 1
         return tree
 
-    @staticmethod
-    def find_node(target, tree, current):
+    @classmethod
+    def find_node(cls, target, tree, current):
         if target == current.value:
             return True
         elif target < current.value:
@@ -95,7 +95,7 @@ class BinarySearchTree:
                 current = current.right
             else:
                 return False
-        return False
+        return cls.find_node(target, tree, current)
 
 
 if __name__ == "__main__":
@@ -103,4 +103,4 @@ if __name__ == "__main__":
     print("| ", end="")
     TREE.print_inorder(TREE.root)
     print()
-    print(TREE.find_node(-5, TREE, TREE.root))
+    print(TREE.find_node(-6, TREE, TREE.root))
