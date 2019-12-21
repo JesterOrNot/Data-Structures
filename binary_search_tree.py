@@ -20,7 +20,7 @@ class BinarySearchTree:
         self.root = None
 
     @classmethod
-    def print_preorder(cls, root):
+    def print_preorder(cls, root) -> None:
         """Print binary search tree with preorder: root, left, right."""
         if not root:
             return
@@ -30,7 +30,7 @@ class BinarySearchTree:
         cls.print_preorder(root.right)
 
     @classmethod
-    def print_inorder(cls, root):
+    def print_inorder(cls, root) -> None:
         """Print binary search tree with inorder: left, root, right."""
         if not root:
             return
@@ -40,7 +40,7 @@ class BinarySearchTree:
         cls.print_inorder(root.right)
 
     @classmethod
-    def print_postorder(cls, root):
+    def print_postorder(cls, root) -> None:
         """Print binary search tree with postorder: left, right, root."""
         if not root:
             return
@@ -49,7 +49,7 @@ class BinarySearchTree:
         print(root.value, end=" | ")
 
     @classmethod
-    def print_outorder(cls, root):
+    def print_outorder(cls, root) -> None:
         """Print binary search tree with outorder: right, root, left."""
         def printer():
             if not root:
@@ -61,7 +61,7 @@ class BinarySearchTree:
         print()
 
     @classmethod
-    def insert_node(cls, node, root):
+    def insert_node(cls, node, root) -> BinarySearchTreeNode:
         if root is None:
             return node
         if node.value < root.value:
@@ -71,7 +71,7 @@ class BinarySearchTree:
         return root
 
     @staticmethod
-    def assemble_tree(node_list):
+    def assemble_tree(node_list) -> BinarySearchTree:
         """Assemble Binary Search Tree based on the given list."""
         tree = BinarySearchTree()
         tree.root = BinarySearchTreeNode(node_list[0])
@@ -82,7 +82,7 @@ class BinarySearchTree:
         return tree
 
     @classmethod
-    def find_node(cls, target, tree, current):
+    def find_node(cls, target, tree, current) -> bool:
         if target == current.value:
             return True
         elif target < current.value:
